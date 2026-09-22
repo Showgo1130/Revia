@@ -1,0 +1,32 @@
+# Revia（Kotlin + Compose）の JVM 単体テスト。PR と main への push で動く。
+# Android SDK は ubuntu ランナーに同梱。JDK 17 は actions/setup-java（Node 24 版の v5）で入れ、Gradle をキャッシュする。
+name: CI
+
+on:
+  pull_request:
+    paths-ignore: ['docs/**', '**.md']   # 文書だけの PR では Gradle job を回さない（required checks を使うなら常時発火に戻す）
+  push:
+    branches: [main]
+    paths-ignore: ['docs/**', '**.md']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+      # product flavor を作っていないので testDebugUnitTest。
+      # flavor を足したら HabitDial と同じく test<Flavor>DebugUnitTest に変える
+      - run: ./gradlew --no-daemon testDebugUnitTest

@@ -1,0 +1,12 @@
+#!/bin/sh
+# Revia: main への直接 commit を拒否する。
+# 有効化: git config core.hooksPath .githooks   詳細: AGENTS.md「Git の進め方」
+branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+case "$branch" in
+  main|master)
+    echo "pre-commit: main への直接 commit は禁止です。" >&2
+    echo "  → git switch -c feat/<issue番号>-<slug> で branch を切って commit し、PR を作ってください（AGENTS.md「Git の進め方」）。" >&2
+    echo "  緊急時に人間が回避する場合のみ: git commit --no-verify（AI は使わない）" >&2
+    exit 1 ;;
+esac
+exit 0

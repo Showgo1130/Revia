@@ -1,0 +1,3 @@
+#!/bin/sh
+# merge commit を作るときも pre-commit と同じ判定を通す（fast-forward は commit を作らないので pre-push が最後の砦）。
+exec "$(dirname "$0")/pre-commit"

@@ -1,0 +1,35 @@
+# 署名鍵とパスワード。絶対にコミットしない（このリポジトリは公開）
+keystore/
+keystore.properties
+*.jks
+*.keystore
+
+# API キーなどの秘密情報。公開リポジトリには 1 件も置かない
+.secrets/
+.env
+.env.*
+!.env.example
+
+# ユーザーの撮影画像と学習データ。実データは公開しない
+# サンプルは app/src/main/assets/samples/ に置く（実データと混ざらない場所）
+/sample-data/private/
+*.private.json
+
+# ビルド成果物
+build/
+app/build/
+.gradle/
+local.properties
+*.apk
+*.aab
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Kotlin コンパイラのセッション情報
+.kotlin/
+
+# 再現用スクリプトの出力（ai-team の「🔴 高で用意するもの」）
+build/repro/
