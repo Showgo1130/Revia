@@ -4,7 +4,11 @@ AI エージェント（Claude Code / Codex など）がこのリポジトリで
 
 ## 1. このリポジトリは何か
 
-紙の参考書・問題集の**目次を AI で読み取り**、章・節・問題ごとに「完了」「要復習」などの状態やメモを記録して、次に見直す箇所を管理する Android アプリ。Kotlin + Jetpack Compose。
+紙の参考書・問題集の**目次を取り込み**、どこまで学習したか・どこを見直したいかを自分で管理できる復習支援アプリ。Android / Kotlin + Jetpack Compose。
+
+**「AI で読み取り」とは書かない。** 取り込む手段は AI でも手入力でもよく、価値の説明に手段を入れると、規約や精度で手段が変わったときに看板ごと書き直すことになる（[docs/decisions.md](docs/decisions.md) 5）。
+
+コンセプトは [docs/concept.md](docs/concept.md)、設計は [docs/design.md](docs/design.md)、判断の理由は [docs/decisions.md](docs/decisions.md)。
 
 **公開リポジトリ。** 開発の進め方（Issue → branch → PR → AI レビュー → merge、CI、hooks）が外から見える状態にしてある。そのため、ここに置くものの基準が他のリポジトリより厳しい（§3）。
 
@@ -22,7 +26,7 @@ AI エージェント（Claude Code / Codex など）がこのリポジトリで
 
 | 置かないもの | 置き場所 | `.gitignore` |
 |---|---|---|
-| AI 解析の API キー | 未定（#1 で決める）。**アプリに埋め込む案は公開リポジトリでは選べない**（APK から取り出せるうえ gitleaks が止める） | `.secrets/` `.env` |
+| AI 解析の API キー | 手元の `.secrets/` か `local.properties`（[docs/decisions.md](docs/decisions.md) 6）。**アプリに埋め込む案は公開リポジトリでは選べない**（APK から取り出せるうえ gitleaks が止める） | `.secrets/` `.env` `local.properties` |
 | 署名鍵とパスワード | `keystore/` と `keystore.properties`（手元のみ） | `keystore/` `keystore.properties` `*.jks` `*.keystore` |
 | ユーザーが撮影した目次画像 | 端末内のみ | `/sample-data/private/` |
 | 個人の学習データ | 端末内のみ | `*.private.json` |
@@ -68,8 +72,20 @@ product flavor は作っていないので `testDebugUnitTest`。flavor を足�
 
 [docs/pr-risk-policy.md](docs/pr-risk-policy.md) の「付録: このリポジトリの例」に、判定するたびに 1 行ずつ足す。まだ空。
 
-現時点で分かっている見込み。
+設計が固まったので、見込みを [docs/design.md](docs/design.md) と [docs/decisions.md](docs/decisions.md) に合わせて具体にした（#5）。
 
-- 🔴 高: AI 解析の API キーの扱い。目次の読み取り結果を保存する schema と移行。権限の追加。署名・リリース設定
-- 🟡 中: AI 解析の呼び出し・リトライ・キャッシュ。学習状態の記録ロジック。画面遷移
+- 🔴 高
+  - **AI の API キーの扱い**（`.secrets/` `local.properties`。公開リポジトリなので履歴から消せない）
+  - **`items` / `materials` の schema と移行。** 列追加は冪等に書く（§6）
+  - **削除の連鎖**（`ON DELETE CASCADE`）。教材を消すと記録した付箋がまとめて消える
+  - **権限の追加**（カメラなど）。使うコードが同じ差分に無いなら CHANGES_REQUIRED
+  - 署名・リリース設定。Play Billing を足すとき
+  - **同期を足すとき・外すとき**（認証、個人の学習データ）
+- 🟡 中
+  - AI 解析の呼び出し・リトライ・失敗時の見せ方
+  - 状態の記録（`result` / `needs_review` / `last_done_at`）
+  - ツリー編集（並べ替え・段の上げ下げ）、範囲一括生成
+  - 集計の数え方、画面遷移
 - 🟢 低: 文言・装飾。既存の検証を弱めないテスト追加
+
+**「決まっていないこと」を実装する差分は、レベルに関わらず差し戻す。** [docs/decisions.md](docs/decisions.md) の「未決」に載っている領域が対象。
