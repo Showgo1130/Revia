@@ -68,8 +68,20 @@ product flavor は作っていないので `testDebugUnitTest`。flavor を足�
 
 [docs/pr-risk-policy.md](docs/pr-risk-policy.md) の「付録: このリポジトリの例」に、判定するたびに 1 行ずつ足す。まだ空。
 
-現時点で分かっている見込み。
+設計が固まったので、見込みを [docs/design.md](docs/design.md) と [docs/decisions.md](docs/decisions.md) に合わせて具体にした（#5）。
 
-- 🔴 高: AI 解析の API キーの扱い。目次の読み取り結果を保存する schema と移行。権限の追加。署名・リリース設定
-- 🟡 中: AI 解析の呼び出し・リトライ・キャッシュ。学習状態の記録ロジック。画面遷移
+- 🔴 高
+  - **AI の API キーの扱い**（`.secrets/` `local.properties`。公開リポジトリなので履歴から消せない）
+  - **`items` / `materials` の schema と移行。** 列追加は冪等に書く（§6）
+  - **削除の連鎖**（`ON DELETE CASCADE`）。教材を消すと記録した付箋がまとめて消える
+  - **権限の追加**（カメラなど）。使うコードが同じ差分に無いなら CHANGES_REQUIRED
+  - 署名・リリース設定。Play Billing を足すとき
+  - **同期を足すとき・外すとき**（認証、個人の学習データ）
+- 🟡 中
+  - AI 解析の呼び出し・リトライ・失敗時の見せ方
+  - 状態の記録（`result` / `needs_review` / `last_done_at`）
+  - ツリー編集（並べ替え・段の上げ下げ）、範囲一括生成
+  - 集計の数え方、画面遷移
 - 🟢 低: 文言・装飾。既存の検証を弱めないテスト追加
+
+**「決まっていないこと」を実装する差分は、レベルに関わらず差し戻す。** [docs/decisions.md](docs/decisions.md) の「未決」に載っている領域が対象。
