@@ -4,7 +4,11 @@ AI エージェント（Claude Code / Codex など）がこのリポジトリで
 
 ## 1. このリポジトリは何か
 
-紙の参考書・問題集の**目次を AI で読み取り**、章・節・問題ごとに「完了」「要復習」などの状態やメモを記録して、次に見直す箇所を管理する Android アプリ。Kotlin + Jetpack Compose。
+紙の参考書・問題集の**目次を取り込み**、どこまで学習したか・どこを見直したいかを自分で管理できる復習支援アプリ。Android / Kotlin + Jetpack Compose。
+
+**「AI で読み取り」とは書かない。** 取り込む手段は AI でも手入力でもよく、価値の説明に手段を入れると、規約や精度で手段が変わったときに看板ごと書き直すことになる（[docs/decisions.md](docs/decisions.md) 5）。
+
+コンセプトは [docs/concept.md](docs/concept.md)、設計は [docs/design.md](docs/design.md)、判断の理由は [docs/decisions.md](docs/decisions.md)。
 
 **公開リポジトリ。** 開発の進め方（Issue → branch → PR → AI レビュー → merge、CI、hooks）が外から見える状態にしてある。そのため、ここに置くものの基準が他のリポジトリより厳しい（§3）。
 
@@ -22,7 +26,7 @@ AI エージェント（Claude Code / Codex など）がこのリポジトリで
 
 | 置かないもの | 置き場所 | `.gitignore` |
 |---|---|---|
-| AI 解析の API キー | 未定（#1 で決める）。**アプリに埋め込む案は公開リポジトリでは選べない**（APK から取り出せるうえ gitleaks が止める） | `.secrets/` `.env` |
+| AI 解析の API キー | 手元の `.secrets/` か `local.properties`（[docs/decisions.md](docs/decisions.md) 6）。**アプリに埋め込む案は公開リポジトリでは選べない**（APK から取り出せるうえ gitleaks が止める） | `.secrets/` `.env` `local.properties` |
 | 署名鍵とパスワード | `keystore/` と `keystore.properties`（手元のみ） | `keystore/` `keystore.properties` `*.jks` `*.keystore` |
 | ユーザーが撮影した目次画像 | 端末内のみ | `/sample-data/private/` |
 | 個人の学習データ | 端末内のみ | `*.private.json` |
