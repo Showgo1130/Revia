@@ -406,6 +406,80 @@ WHERE material_id = ?
 
 **章の進捗バーも同じく、その章の下の葉だけを数える。**
 
+## コードの構成
+
+**どこに何を置くか。** 層の分け方の理由は [decisions.md](decisions.md) 39・40。
+
+### 層
+
+```
+UI 層    Composable（見た目）＋ ViewModel（画面の状態）
+  ↓ 呼ぶ
+Data 層  Repository（窓口）＋ Room（保存）
+```
+
+**矢印は一方向。** UI は Data を呼ぶが、**Data は UI を知らない**。Domain 層（UseCase）は置かない。
+
+### folder
+
+```
+app/src/main/kotlin/com/goshow/revia/
+├── MainActivity.kt          入口。NavHost（画面遷移）をここに置く
+│
+├── ui/
+│   ├── theme/               色・書体・寸法（上の「見た目の基準」を写す）
+│   ├── component/           画面をまたいで使う部品（印・進捗バー・ナビ）
+│   ├── material/            教材まわり（画面 1・2・8）
+│   ├── review/              復習まわり（画面 11・12・14）
+│   ├── import/              取り込み（画面 3〜7・9）
+│   └── settings/            設定（画面 13）
+│
+├── data/
+│   ├── db/                  Room（Entity・Dao・Database）
+│   └── <名前>Repository.kt   画面から見た窓口
+│
+└── toc/                     目次の読み取り
+```
+
+**層が外、機能が内。** `material/ui/` ではなく `ui/material/` にする。
+
+### 命名
+
+| 種類 | 付け方 | 例 |
+|---|---|---|
+| 画面 | `<機能>Screen.kt` | `MaterialDetailScreen.kt` |
+| 画面の状態を持つもの | `<機能>ViewModel.kt` | `MaterialDetailViewModel.kt` |
+| 画面をまたぐ部品 | 部品の名前 | `StateMark.kt` |
+| テーブルの形 | `<名前>Entity.kt` | `ItemEntity.kt` |
+| テーブルの読み書き | `<名前>Dao.kt` | `ItemDao.kt` |
+| データの窓口 | `<名前>Repository.kt` | `MaterialRepository.kt` |
+
+`@Composable` な関数は**大文字で始める**（`MaterialDetailScreen()`）。ふつうの関数は小文字始まりなので、**見ただけで Composable と分かる**。
+
+### 1 ファイルの粒度
+
+**「1 クラス 1 ファイル」にしない。** Kotlin は 1 つのファイルに複数の宣言を置ける。
+
+| もの | どこに書くか |
+|---|---|
+| 画面 | **1 画面 = 1 ファイル** |
+| その画面でしか使わない部品 | **同じファイルの中。分けない** |
+| 複数の画面で使う部品 | `ui/component/` に出す |
+| ViewModel | 画面と対にして別ファイル |
+
+**分けたほうが偉いのではない。** 上から下へ読めるかどうかで決める。
+
+### テストの置き場所
+
+| 何をテストするか | どこ | 速さ |
+|---|---|---|
+| Repository・データの変換・目次の組み立て・ViewModel | `app/src/test/` | **速い**（秒） |
+| Room の SQL、画面の操作、ML Kit | `app/src/androidTest/` | 遅い（分） |
+
+**ViewModel は `test/` でテストできる状態を保つ。** そのために **ViewModel から `Context` を触らない**。文字列は画面側で解決し、ViewModel は ID か値だけを持つ。
+
+`TocParser` を Android から切り離したのと同じ狙い（#17）。端末が要らないほど、詰めるのが速くなる。
+
 ## 実装で気をつけること
 
 - **移行（マイグレーション）の列追加は冪等に書く。** 他のリポジトリで「版を戻してから上げ直した端末で DB が開けなくなる」事故が起きている（[AGENTS.md](../AGENTS.md)）。`ALTER TABLE ADD COLUMN` を無条件に打たない
