@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lucide の「camera」（撮る）。https://lucide.dev/icons/camera
+    ISC License / Copyright (c) 2026 Lucide Icons and Contributors
+
+    原寸 24x24 のまま。Lucide の d をそのまま写し、線の太さだけ 2 から 1.9 に下げてある（決定 28）。
+    色は持たせない。呼び出し側の Icon(painter, tint = ...) で決める。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- 原本は <circle cx="12" cy="13" r="3" /> -->
+    <path
+        android:pathData="M9,13 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>
