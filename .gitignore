@@ -10,10 +10,20 @@ keystore.properties
 .env.*
 !.env.example
 
-# ユーザーの撮影画像と学習データ。実データは公開しない
-# サンプルは app/src/main/assets/samples/ に置く（実データと混ざらない場所）
-/sample-data/private/
+# ユーザーの撮影画像と、そこから取り出した目次。このリポジトリは公開で、
+# 一度入った履歴は消せない（履歴の書き換えはしない方針）ので、既定で全部無視する。
+# 追跡したいものが出てきたら、ここに ! の行を足して 1 つずつ戻すこと。
+# 以前は /sample-data/private/ だけを無視していたが、実際の出力先は
+# sample-data/revia-toc-out/ で、効いていなかった（#32）
+/sample-data/
 *.private.json
+
+# アプリに同梱する作り物のサンプルは、実データと混ざらない場所に置く
+# （app/src/main/assets/samples/。ここは無視しない）
+
+# 閉じた PR #10 の Figma プラグインと、その node_modules。
+# 決定 38 で Figma は使わないと決めたので、手元に残っていても追跡しない
+/tools/figma/
 
 # ビルド成果物
 build/
