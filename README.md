@@ -4,7 +4,11 @@
 
 Kotlin + Jetpack Compose / minSdk 26 / targetSdk 36
 
-> **開発中です。** 2026-09-23 時点で機能はまだ入っていません。CI が緑で回る骨組みだけがあります。
+[![Revia の画面デザイン。左から教材一覧・教材詳細・復習一覧](docs/ui/screenshot.png)](https://showgo1130.github.io/Revia/ui/)
+
+**→ [14 画面のデザインを見る](https://showgo1130.github.io/Revia/ui/)**（ブラウザで触れます。**実装前のモック**です）
+
+> **開発中です。** 2026-09-23 時点で機能はまだ入っていません。設計と画面デザインが決まり、CI が緑で回る骨組みがある段階です。
 
 ## 設計
 
@@ -13,7 +17,7 @@ Kotlin + Jetpack Compose / minSdk 26 / targetSdk 36
 | [docs/concept.md](docs/concept.md) | なぜ作るか・誰のため・やらないこと |
 | [docs/design.md](docs/design.md) | **何をどう作るか。** 14 画面・色や寸法の値・画面遷移。**値の正本** |
 | [docs/decisions.md](docs/decisions.md) | 決定の記録（なぜそう決めたか、何を捨てたか） |
-| [docs/ui/index.html](docs/ui/index.html) | **14 画面の見本。** ブラウザで開くと触れる。挿絵なので、食い違ったら `docs/` が正しい |
+| [14 画面の見本](https://showgo1130.github.io/Revia/ui/) | ブラウザで触れる。**挿絵なので、食い違ったら `docs/` が正しい**（決定 37）。元は [docs/ui/index.html](docs/ui/index.html)、画像の撮り直しは [docs/ui/screenshot.md](docs/ui/screenshot.md) |
 | [docs/research/ai-terms.md](docs/research/ai-terms.md) | 規約・権利の調査 |
 
 ## ビルド
