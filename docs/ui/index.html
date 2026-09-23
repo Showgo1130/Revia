@@ -67,7 +67,7 @@
   .band + .sub strong { color: var(--ink); }
   section.block { margin-bottom: 56px; }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 34px; align-items: start; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 34px; align-items: start; }
   .col > header { margin-bottom: 12px; }
   .col h4 { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 17px; font-weight: 700; margin: 0 0 3px; }
   .col h4 .idx { color: var(--accent); margin-right: 5px; }
@@ -81,7 +81,8 @@
     --hair: rgba(20, 32, 60, .10); --gauge: #E2E7F0;
     --fill: #2A2F38; --acc: #BF4A2C; --chipbg: #E6EBF3;
 
-    width: 100%; max-width: 300px; aspect-ratio: 360 / 720;
+    /* 1px = 1dp。360 x 720dp の端末を実寸で描く（縮めると中身だけ大きく見える） */
+    width: 100%; max-width: 360px; aspect-ratio: 360 / 720;
     border-radius: 26px; overflow: hidden; position: relative; margin: 0 auto 14px;
     box-shadow: 0 20px 44px -24px rgba(16, 22, 38, .5), 0 2px 6px rgba(16, 22, 38, .1);
     background: var(--bg); color: var(--ink-c);

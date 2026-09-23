@@ -35,10 +35,10 @@ io.open('shot.html', 'w', encoding='utf-8', newline='\n').write('''<!doctype htm
 <style>
   html,body{margin:0;background:#DCDDE1;font-family:"Noto Sans JP",sans-serif;}
   .sheet{display:flex;gap:36px;padding:44px 40px 36px;justify-content:center;align-items:flex-start;width:max-content;margin:0 auto;}
-  figure{margin:0;display:block;width:300px;flex:none;}
+  figure{margin:0;display:block;width:360px;flex:none;}
   figcaption{margin-top:16px;text-align:center;font-size:14px;font-weight:700;color:#15171B;letter-spacing:.02em;}
   /* flex の中では .phone が width:100% で潰れるので、ここで固定する */
-  .phone{width:300px !important;max-width:300px !important;height:600px !important;aspect-ratio:auto !important;margin:0 !important;flex:none !important;}
+  .phone{width:360px !important;max-width:360px !important;height:720px !important;aspect-ratio:auto !important;margin:0 !important;flex:none !important;}
 </style></head><body>
 %s
 <div class="sheet">%s</div>
@@ -60,7 +60,7 @@ ROOT=$(cygpath -m "$(pwd)")   # macOS・Linux なら ROOT=$(pwd)
 "$CHROME" \
   --headless=new --disable-gpu --hide-scrollbars \
   --force-device-scale-factor=2 \
-  --window-size=1060,730 \
+  --window-size=1240,840 \
   --virtual-time-budget=8000 \
   --screenshot="$ROOT/docs/ui/screenshot.png" \
   "file:///$ROOT/shot.html"
@@ -68,12 +68,14 @@ ROOT=$(cygpath -m "$(pwd)")   # macOS・Linux なら ROOT=$(pwd)
 
 **`--screenshot` も開く頁も絶対パスにする。** Chrome は相対パスを**自分の作業ディレクトリ**から解決するので、シェル側の位置とは合わず、`Failed to write file` で落ちる。`$(pwd)` から組み立てれば、手元のパスをこのファイルに書き残さずに済む。
 
-`--force-device-scale-factor=2` で 2120 × 1460 になる。README に載せる大きさとして十分で、300 KB 前後に収まる。
+`--force-device-scale-factor=2` で 2480 × 1680 になる。README に載せる大きさとして十分。
+
+**枠は 360 × 720px にする。** `index.html` の `.phone` と同じ寸法で、**1px = 1dp** になる。ここを縮めると中身だけが大きく見え、寸法を見て設計を決めたときにずれる。
 
 ## 3. 確かめる
 
 - **アイコンが本物の Lucide になっているか。** 歯車・`>`・`+`・縦三点が出ていれば読み込めている。のっぺりした代替が出ていたら `--virtual-time-budget` を伸ばす
-- **ナビが枠の幅の 70% か**（決定 43）。枠は 300px なので 210px になる
+- **ナビが枠の幅の 70% か**（決定 43）。枠は 360px なので 252px になる
 - **ナビの選択が半分の幅いっぱいのカプセルか**（決定 27）
 - **印が ○ ✓ ● か**、朱が「要復習」の数字と ● だけに出ているか（決定 24・25）
 - 書体が Noto Sans JP になっているか。出ていなければ Google Fonts が間に合っていない
