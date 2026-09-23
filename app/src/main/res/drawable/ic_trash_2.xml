@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lucide の「trash-2」（削除）。https://lucide.dev/icons/trash-2
+    ISC License / Copyright (c) 2026 Lucide Icons and Contributors
+    Feather 由来（MIT License / Copyright (c) 2013-present Cole Bemis）
+
+    原寸 24x24 のまま。Lucide の d をそのまま写し、線の太さだけ 2 から 1.9 に下げてある（決定 28）。
+    色は持たせない。呼び出し側の Icon(painter, tint = ...) で決める。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:pathData="M10 11v6"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M14 11v6"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M3 6h18"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:pathData="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Lucide の「grip-vertical」（並べ替えの取っ手）。https://lucide.dev/icons/grip-vertical
+    ISC License / Copyright (c) 2026 Lucide Icons and Contributors
+
+    原寸 24x24 のまま。Lucide の d をそのまま写し、線の太さだけ 2 から 1.9 に下げてある（決定 28）。
+    色は持たせない。呼び出し側の Icon(painter, tint = ...) で決める。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- 原本は <circle cx="9" cy="12" r="1" /> -->
+    <path
+        android:pathData="M8,12 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0 Z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- 原本は <circle cx="9" cy="5" r="1" /> -->
+    <path
+        android:pathData="M8,5 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0 Z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- 原本は <circle cx="9" cy="19" r="1" /> -->
+    <path
+        android:pathData="M8,19 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0 Z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- 原本は <circle cx="15" cy="12" r="1" /> -->
+    <path
+        android:pathData="M14,12 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0 Z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- 原本は <circle cx="15" cy="5" r="1" /> -->
+    <path
+        android:pathData="M14,5 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0 Z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- 原本は <circle cx="15" cy="19" r="1" /> -->
+    <path
+        android:pathData="M14,19 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0 Z"
+        android:strokeWidth="1.9"
+        android:strokeColor="#FF000000"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>
