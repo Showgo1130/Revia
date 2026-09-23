@@ -10,6 +10,7 @@ coroutines = "1.10.2"
 junit = "4.13.2"
 androidxJunit = "1.3.0"
 espresso = "3.7.0"
+mlkitTextJapanese = "16.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +32,8 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
+# 予備調査（#17）でだけ使う。採用を決めるまでアプリ本体には入れない
+mlkit-text-japanese = { group = "com.google.mlkit", name = "text-recognition-japanese", version.ref = "mlkitTextJapanese" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

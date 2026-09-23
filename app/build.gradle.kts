@@ -105,5 +105,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    // 予備調査（#17）でだけ使う。採用を決めるまでアプリ本体（implementation）には入れない
+    androidTestImplementation(libs.mlkit.text.japanese)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
