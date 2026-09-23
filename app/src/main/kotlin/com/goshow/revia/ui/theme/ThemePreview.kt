@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -86,34 +85,6 @@ private fun ThemeValuesPreview() {
                         .height(Dimen.GaugeHeight)
                         .background(Sumi, CircleShape),
                 )
-            }
-
-            Section("ナビの選択")
-            Box(
-                Modifier
-                    .width(Dimen.NavWidth)
-                    .height(Dimen.NavHeight)
-                    .background(Card, RoundedCornerShape(Dimen.NavCorner))
-                    .border(1.dp, Hairline, RoundedCornerShape(Dimen.NavCorner)),
-                contentAlignment = Alignment.CenterStart,
-            ) {
-                Box(
-                    Modifier
-                        .padding(start = 6.dp)
-                        .width(Dimen.NavIndicatorWidth)
-                        .height(Dimen.NavIndicatorHeight)
-                        .background(SelectedCapsule, RoundedCornerShape(Dimen.NavIndicatorCorner)),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text("教材", style = NavLabelSelected, color = Ink)
-                }
-                Spacer(Modifier.width(Dimen.NavIndicatorWidth))
-                Box(
-                    Modifier.width(Dimen.NavIndicatorWidth + 6.dp),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text("復習", style = NavLabel, color = InkMuted)
-                }
             }
         }
     }
