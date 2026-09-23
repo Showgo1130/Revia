@@ -5,6 +5,7 @@
 - なぜ作るかは [concept.md](concept.md)
 - なぜその形にしたかは [decisions.md](decisions.md)
 - 見て触れる見本は [ui/index.html](ui/index.html)。**あれは挿絵で、値の正本はこのファイル**。食い違ったらこちらが正しい
+- README に載せている画像は `ui/screenshot.png`。**見本から起こした生成物**なので、画面を変えたら [ui/screenshot.md](ui/screenshot.md) の手順で撮り直す
 - **ここに書かれていないことは決まっていない。** 実装の前に Issue で決める
 
 ## MVP の範囲
