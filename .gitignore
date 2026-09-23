@@ -12,7 +12,7 @@ keystore.properties
 
 # ユーザーの撮影画像と学習データ。実データは公開しない
 # サンプルは app/src/main/assets/samples/ に置く（実データと混ざらない場所）
-/sample-data/private/
+/sample-data/
 *.private.json
 
 # ビルド成果物
