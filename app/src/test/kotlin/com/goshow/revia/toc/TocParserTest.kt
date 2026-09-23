@@ -104,9 +104,7 @@ class TocParserTest {
             line("20", 900f, 2, width = 30f),
             line("31", 900f, 3, width = 30f),
         )
-        val columns = TocParser.splitColumns(page(body + numbers))
-
-        assertEquals("段に割ってはいけない", 1, columns.size)
+        assertNull("段に割ってはいけない", TocParser.columnBoundary(page(body + numbers)))
     }
 
     // ────────── 3. 番号が無く、字下げだけの目次 ──────────
@@ -183,12 +181,91 @@ class TocParserTest {
     @Test
     fun `番号の書式から段と種類を読む`() {
         assertEquals(TocParser.Classified(0, TocKind.CHAPTER), TocParser.classify("第1章　はじめに"))
-        assertEquals(TocParser.Classified(0, TocKind.CHAPTER), TocParser.classify("第三部　まとめ"))
+        assertEquals("部は章より上なので -1", TocParser.Classified(-1, TocKind.CHAPTER), TocParser.classify("第三部　まとめ"))
+        assertEquals(TocParser.Classified(-1, TocKind.CHAPTER), TocParser.classify("Part 1 文法"))
         assertEquals(TocParser.Classified(0, TocKind.CHAPTER), TocParser.classify("Chapter 2 Basics"))
         assertEquals(TocParser.Classified(1, TocKind.SECTION), TocParser.classify("2.3　つかいかた"))
         assertEquals(TocParser.Classified(2, TocKind.SECTION), TocParser.classify("2.3.1　こまかい話"))
         assertEquals(TocParser.Classified(2, TocKind.QUESTION), TocParser.classify("例題4"))
+        assertEquals("通し番号は節あつかい", TocParser.Classified(1, TocKind.SECTION), TocParser.classify("001　基本の用法"))
+        assertEquals("囲みは 1 段深い", TocParser.Classified(2, TocKind.SECTION), TocParser.classify("整理 1　原則として"))
+        assertNull("1 桁は章番号と紛れるので当てない", TocParser.classify("1 推論"))
         assertNull(TocParser.classify("まえがき"))
+    }
+
+    @Test
+    fun `Part があれば章が 1 段下がる`() {
+        val result = TocParser.parse(page(listOf(
+            line("Part 1　文法", 60f, 0),
+            line("第1章　時制", 90f, 1),
+            line("001　基本の用法", 120f, 2),
+            line("第2章　態", 90f, 3),
+            line("012　受動態の基本", 120f, 4),
+        )))
+
+        assertEquals("最上位は Part だけ", 1, result.size)
+        assertEquals("Part 1　文法", result[0].label)
+        assertEquals(listOf("第1章　時制", "第2章　態"), result[0].children.map { it.label })
+        assertEquals(listOf("001　基本の用法"), result[0].children[0].children.map { it.label })
+    }
+
+    @Test
+    fun `Part が無ければ章が最上位のまま`() {
+        val result = TocParser.parse(page(listOf(
+            line("第1章　時制", 90f, 0),
+            line("1.1　現在形", 120f, 1),
+            line("第2章　態", 90f, 2),
+        )))
+
+        assertEquals(2, result.size)
+        assertEquals(0, result[0].level)
+    }
+
+    @Test
+    fun `章ごとに区切られた 2 段組で、後ろの章に項目を取られない`() {
+        // 章の見出しが段をまたいで置かれ、その下が 2 段になっている目次
+        val lines = listOf(
+            line("第1章　時制", 80f, 0, width = 200f),
+            line("001　基本の用法", 110f, 1, width = 300f),
+            line("008　副詞節", 560f, 1, width = 300f),
+            line("002　進行形", 110f, 2, width = 300f),
+            line("009　when 節", 560f, 2, width = 300f),
+            line("第2章　態", 80f, 3, width = 200f),
+            line("012　受動態", 110f, 4, width = 300f),
+            line("015　前置詞", 560f, 4, width = 300f),
+            line("013　完了形", 110f, 5, width = 300f),
+        )
+        val result = TocParser.parse(page(lines))
+
+        assertEquals(2, result.size)
+        assertEquals(
+            listOf("001　基本の用法", "002　進行形", "008　副詞節", "009　when 節"),
+            result[0].children.map { it.label },
+        )
+        assertEquals(
+            listOf("012　受動態", "013　完了形", "015　前置詞"),
+            result[1].children.map { it.label },
+        )
+    }
+
+    @Test
+    fun `ページ番号の列があっても段の境目を見つける`() {
+        // 左の段の見出し・ページ番号・右の段の見出し、の 3 つのかたまりができる
+        val lines = listOf(
+            line("001　ひとつめ", 110f, 0, width = 300f),
+            line("002　ふたつめ", 110f, 1, width = 300f),
+            line("003　みっつめ", 110f, 2, width = 300f),
+            line("17", 470f, 0, width = 30f),
+            line("19", 470f, 1, width = 30f),
+            line("21", 470f, 2, width = 30f),
+            line("008　よっつめ", 560f, 0, width = 300f),
+            line("009　いつつめ", 560f, 1, width = 300f),
+            line("010　むっつめ", 560f, 2, width = 300f),
+        )
+        val boundary = TocParser.columnBoundary(page(lines))
+
+        assertTrue("段に割れること", boundary != null)
+        assertTrue("左のページ番号を右へ取らないこと", boundary!! > 500f)
     }
 
     @Test
