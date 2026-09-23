@@ -31,15 +31,33 @@ object Dimen {
 
     // ── ナビ ──
 
-    val NavWidth = 264.dp
+    /**
+     * ナビの幅は**画面の幅に対する割合**（決定 43）。固定 264dp をやめた。
+     *
+     * 端末の幅で言うと、360dp なら 252dp、411dp なら 288dp になる。
+     */
+    const val NavWidthFraction = 0.7f
+
+    /**
+     * ナビの幅の上限。**横向きとタブレットで間延びさせない**ため（決定 43）。
+     *
+     * 縦向きの端末では効かない（480dp の端末でも 70% は 336dp）。
+     */
+    val NavWidthMax = 400.dp
+
     val NavHeight = 52.dp
     val NavCorner = 26.dp
 
-    /** 画面の下端からナビまでの距離。**浮かせるための隙間** */
-    val NavBottomGap = 16.dp
+    /** 画面の下端からナビまでの距離。**浮かせるための隙間**（決定 43） */
+    val NavBottomGap = 28.dp
 
-    /** 選択中のカプセル。**ナビの半分の幅いっぱい**（決定 27） */
-    val NavIndicatorWidth = 126.dp
+    /**
+     * 選択中のカプセルと、半分の境との隙間（決定 27）。
+     *
+     * カプセルの幅は**ナビの半分から左右にこれだけ削った残り**。幅が割合で決まるので、
+     * カプセルの幅も固定値では持たない。計算は `indicatorWidthFor`。
+     */
+    val NavIndicatorMargin = 3.dp
     val NavIndicatorHeight = 40.dp
     val NavIndicatorCorner = 20.dp
 
