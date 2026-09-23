@@ -97,6 +97,10 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.navigation.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    // 予備調査（#17）。採用を決めるまで release には入れない。
+    // androidTest だけに入れると、ML Kit が部品をマニフェストのメタデータから見つけられず
+    // アプリのプロセスで初期化できない（TextRecognition.getClient が NPE）
+    debugImplementation(libs.mlkit.text.japanese)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
@@ -105,7 +109,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    // 予備調査（#17）でだけ使う。採用を決めるまでアプリ本体（implementation）には入れない
-    androidTestImplementation(libs.mlkit.text.japanese)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
