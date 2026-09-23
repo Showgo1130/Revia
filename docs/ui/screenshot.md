@@ -50,14 +50,20 @@ io.open('shot.html', 'w', encoding='utf-8', newline='\n').write('''<!doctype htm
 ヘッドレスの Chrome で撮る。**`--virtual-time-budget` を入れないと、Lucide の CDN と Google Fonts が間に合わない。**
 
 ```bash
-"/c/Program Files/Google/Chrome/Application/chrome.exe" \
+# Chrome の実行ファイルを指す。Windows なら Program Files の下、
+# macOS なら /Applications の下。手元のパスをこのファイルに書き残さない
+CHROME="<Chrome の実行ファイル>"
+
+"$CHROME" \
   --headless=new --disable-gpu --hide-scrollbars \
   --force-device-scale-factor=2 \
   --window-size=1060,730 \
   --virtual-time-budget=8000 \
   --screenshot=docs/ui/screenshot.png \
-  "file:///<shot.html の絶対パス>"
+  "file://$(pwd)/shot.html"
 ```
+
+`--screenshot` は相対パスでよいが、**開く頁のほうは `file://` の絶対 URL でないと読まれない**。`$(pwd)` で組み立てれば、手元のパスを書き残さずに済む。
 
 `--force-device-scale-factor=2` で 2120 × 1460 になる。README に載せる大きさとして十分で、300 KB 前後に収まる。
 
