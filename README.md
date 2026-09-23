@@ -6,7 +6,7 @@ Android アプリ / Kotlin + Jetpack Compose / minSdk 26 / targetSdk 36
 
 [![Revia の画面デザイン。左から教材一覧・教材詳細・復習一覧](docs/ui/screenshot.png)](https://showgo1130.github.io/Revia/ui/)
 
-**[14 画面のデザインを見る](https://showgo1130.github.io/Revia/ui/)** — ブラウザで触れます。実装前のモックです。
+**[画面デザインを見る](https://showgo1130.github.io/Revia/ui/)** — ブラウザで触れます。実装前のモックです。
 
 > **開発中です。** 2026-09-23 時点で、設計と画面デザインが決まり、CI が回る骨組みだけがあります。機能はまだ入っていません。
 
@@ -15,7 +15,7 @@ Android アプリ / Kotlin + Jetpack Compose / minSdk 26 / targetSdk 36
 作る前に決めたことを `docs/` に残しています。
 
 - **[コンセプト](docs/concept.md)** — 何を解決したいのか。紙と比べて何で勝てて、何を諦めるか
-- **[デザイン](docs/design.md)** — 14 画面の仕様と、色・寸法・書体の値
+- **[デザイン](docs/design.md)** — 画面ごとの仕様と、色・寸法・書体の値
 - **[決定の記録](docs/decisions.md)** — そう決めた理由と、捨てた案（38 件）
 - **[規約と権利の調査](docs/research/ai-terms.md)** — 目次を AI に読ませることの整理
 
