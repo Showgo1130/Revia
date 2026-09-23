@@ -16,20 +16,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.goshow.revia.ui.theme.Ground
+import com.goshow.revia.ui.theme.ReviaTheme
 
 /**
  * 起動画面。まだ機能は入っていない。
  *
  * 最初の commit は開発体制（Issue → branch → PR → レビュー → merge、CI、hooks）を
  * 通すための骨組みで、機能はここから PR で足していく。
+ *
+ * **[ReviaTheme] で包んである。** ここで包んでおけば、以後どの画面も色と書体を
+ * 受け取れる。`Scaffold` の地は白が既定なので、[Ground] を明示している（決定 24）。
  */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MaterialTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+            ReviaTheme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = Ground,
+                ) { innerPadding ->
                     Placeholder(Modifier.padding(innerPadding))
                 }
             }
@@ -52,5 +60,5 @@ private fun Placeholder(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun PlaceholderPreview() {
-    MaterialTheme { Placeholder() }
+    ReviaTheme { Placeholder() }
 }
