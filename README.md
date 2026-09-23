@@ -6,6 +6,16 @@ Kotlin + Jetpack Compose / minSdk 26 / targetSdk 36
 
 > **開発中です。** 2026-09-23 時点で機能はまだ入っていません。CI が緑で回る骨組みだけがあります。
 
+## 設計
+
+| もの | 中身 |
+|---|---|
+| [docs/concept.md](docs/concept.md) | なぜ作るか・誰のため・やらないこと |
+| [docs/design.md](docs/design.md) | **何をどう作るか。** 14 画面・色や寸法の値・画面遷移。**値の正本** |
+| [docs/decisions.md](docs/decisions.md) | 決定の記録（なぜそう決めたか、何を捨てたか） |
+| [docs/ui/index.html](docs/ui/index.html) | **14 画面の見本。** ブラウザで開くと触れる。挿絵なので、食い違ったら `docs/` が正しい |
+| [docs/research/ai-terms.md](docs/research/ai-terms.md) | 規約・権利の調査 |
+
 ## ビルド
 
 ```bash
